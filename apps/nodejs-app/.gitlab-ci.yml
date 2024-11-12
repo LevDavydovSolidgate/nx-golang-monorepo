@@ -1,0 +1,5 @@
+include:
+  - local: "/.gitlab-ci-app.yml"
+
+variables:
+  NX_APP: "nodejs-app"

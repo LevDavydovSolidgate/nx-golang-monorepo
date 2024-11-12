@@ -1,0 +1,9 @@
+{
+  "name": "nodejs-external-api-client",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project nodejs-external-api-client --web",
+  "targets": {}
+}

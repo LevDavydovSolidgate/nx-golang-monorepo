@@ -1,0 +1,49 @@
+stages:
+  - "pre"
+
+node_modules:
+  stage: "pre"
+  cache:
+    policy: "pull-push"
+    key:
+      files:
+        - "package-lock.json"
+        - ".gitlab/${CI_RUNNER_EXECUTABLE_ARCH}"
+    paths:
+      - ".pnpm-store"
+  script:
+    - "npm ci"
+  tags:
+    - "ci"
+
+gen:
+  stage: "pre"
+  before_script:
+    - "git fetch origin main"
+  script:
+    - ".bin/generateDownstreamPipeline.js > pipelines-gitlab-ci.yml"
+  artifacts:
+    paths:
+      - "pipelines-gitlab-ci.yml"
+  tags:
+    - "ci"
+
+run:
+  stage: "pre"
+  needs:
+    - "gen"
+    - "audit"
+  trigger:
+    strategy: "depend"
+    include:
+      - artifact: "pipelines-gitlab-ci.yml"
+        job: "gen"
+
+tag:
+  stage: "pre"
+  only:
+    - "main"
+  script:
+    - "nx run-many --target=semantic-release --parallel=false"
+  tags:
+    - "ci"

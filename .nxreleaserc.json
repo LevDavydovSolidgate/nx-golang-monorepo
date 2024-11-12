@@ -1,0 +1,8 @@
+{
+  "changelog": false,
+  "npm": false,
+  "github": false,
+  "repositoryUrl": "@TODO: fill me",
+  "plugins": ["@semantic-release/gitlab"],
+  "branches": ["main"]
+}

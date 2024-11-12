@@ -1,0 +1,21 @@
+variables:
+  NX_LIB: "NX_APP"
+
+stages:
+  - build
+
+build:
+  stage: build
+  script:
+    - nx run $NX_APP:build --outputPath=build
+
+test:
+  stage: build
+  script:
+    - nx run $NX_APP:test --outputPath=build
+
+list:
+  stage: build
+  script:
+    - nx run $NX_APP:lint --outputPath=build
+
